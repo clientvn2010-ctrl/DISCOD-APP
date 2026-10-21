@@ -2,11 +2,11 @@
   "name": "discord-member-migration-bot",
   "version": "1.0.0",
   "description": "Discord bot that verifies members via OAuth2 and pulls them to a new server",
-  "main": "src/index.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "node --watch src/index.js",
-    "preview": "node src/preview.js"
+    "start": "node index.js || node src/index.js",
+    "dev": "node --watch index.js",
+    "preview": "node preview.js"
   },
   "dependencies": {
     "discord.js": "^14.16.3",

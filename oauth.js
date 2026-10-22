@@ -1,4 +1,14 @@
-const { CLIENT_ID, CLIENT_SECRET, REDIRECT_URI } = process.env;
+function getClientId() {
+  return process.env.CLIENT_ID;
+}
+
+function getClientSecret() {
+  return process.env.CLIENT_SECRET;
+}
+
+function getRedirectUri() {
+  return process.env.REDIRECT_URI || 'http://localhost:3000/callback';
+}
 
 /**
  * Đổi authorization code lấy access token
@@ -7,11 +17,11 @@ async function exchangeCode(code) {
   const response = await fetch('https://discord.com/api/v10/oauth2/token', {
     method: 'POST',
     body: new URLSearchParams({
-      client_id: CLIENT_ID,
-      client_secret: CLIENT_SECRET,
+      client_id: getClientId(),
+      client_secret: getClientSecret(),
       grant_type: 'authorization_code',
       code,
-      redirect_uri: REDIRECT_URI,
+      redirect_uri: getRedirectUri(),
     }),
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
   });
@@ -28,8 +38,8 @@ async function refreshToken(refreshToken) {
   const response = await fetch('https://discord.com/api/v10/oauth2/token', {
     method: 'POST',
     body: new URLSearchParams({
-      client_id: CLIENT_ID,
-      client_secret: CLIENT_SECRET,
+      client_id: getClientId(),
+      client_secret: getClientSecret(),
       grant_type: 'refresh_token',
       refresh_token: refreshToken,
     }),
@@ -59,8 +69,8 @@ async function getUser(accessToken) {
  */
 function getAuthUrl(state) {
   const params = new URLSearchParams({
-    client_id: CLIENT_ID,
-    redirect_uri: REDIRECT_URI,
+    client_id: getClientId(),
+    redirect_uri: getRedirectUri(),
     response_type: 'code',
     scope: 'identify guilds.join',
     prompt: 'consent',

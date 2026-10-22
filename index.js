@@ -16,7 +16,7 @@ for (const key of required) {
 
 const BOT_TOKEN = process.env.BOT_TOKEN;
 const CLIENT_ID = process.env.CLIENT_ID;
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.SERVER_PORT || process.env.PORT || 3000;
 
 // ===== Discord Client =====
 const client = new Client({
